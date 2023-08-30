@@ -18,11 +18,10 @@ const Scheme =  new mongoose.Schema({
     likes:{
         type:String,
     },
-    timestamp:{
-        type:String,
-        required:[true,'Must provide the timestamp'],
-        trim:true,
-    }
+    timestamp: {
+        type: Date,
+        default: Date.now, // This sets the timestamp to the current date/time
+      },
 })
 
 module.exports = Scheme

@@ -36,12 +36,10 @@ const post_jewellery_details = asyncWrapper(async (req, res) => {
   try {
     const mongoose = await connect();
     const db = mongoose.connection.useDb(db_name, { useCache: true });
-    if (!Object.keys(db.models).length) {
-      let jewellery_model_values = db.model("Jewel", Jewellery);
-      Jewellery_details = await jewellery_model_values.create(
-        passing_request_body
-      );
-    }
+    let jewellery_model_values = db.model("Jewel", Jewellery);
+    Jewellery_details = await jewellery_model_values.create(
+      passing_request_body
+    );
     mongoose.connection.close();
   } catch (error) {
     console.log(error);
@@ -60,14 +58,12 @@ const delete_jewellery_details = asyncWrapper(async (req, res, next) => {
   try {
     const mongoose = await connect();
     const db = mongoose.connection.useDb(db_name, { useCache: true });
-    if (!Object.keys(db.models).length) {
-      let jewellery_model_values = db.model("Jewel", Jewellery);
-      Jewellery_details = await jewellery_model_values.findOneAndDelete({
-        _id: jewelId,
-      });
-      if (!Jewellery_details) {
-        return next(createCustomError(`No jewel with id : ${jewelId}`, 404));
-      }
+    let jewellery_model_values = db.model("Jewel", Jewellery);
+    Jewellery_details = await jewellery_model_values.findOneAndDelete({
+      _id: jewelId,
+    });
+    if (!Jewellery_details) {
+      return next(createCustomError(`No jewel with id : ${jewelId}`, 404));
     }
     mongoose.connection.close();
   } catch (error) {
@@ -85,10 +81,8 @@ const getall_jewellery_details = asyncWrapper(async (req, res) => {
   try {
     const mongoose = await connect();
     const db = mongoose.connection.useDb(db_name, { useCache: true });
-    if (!Object.keys(db.models).length) {
-      let jewellery_model_values = db.model("Jewel", Jewellery);
-      Jewellery_details = await jewellery_model_values.find({});
-    }
+    let jewellery_model_values = db.model("Jewel", Jewellery);
+    Jewellery_details = await jewellery_model_values.find({});
     mongoose.connection.close();
   } catch (error) {
     console.log(error);
@@ -106,14 +100,12 @@ const getid_jewellery_details = asyncWrapper(async (req, res, next) => {
   try {
     const mongoose = await connect();
     const db = mongoose.connection.useDb(db_name, { useCache: true });
-    if (!Object.keys(db.models).length) {
-      let jewellery_model_values = db.model("Jewel", Jewellery);
-      Jewellery_details = await jewellery_model_values.findOne({
-        _id: jewelId,
-      });
-      if (!Jewellery_details) {
-        return next(createCustomError(`No jewel with id : ${jewelId}`, 404));
-      }
+    let jewellery_model_values = db.model("Jewel", Jewellery);
+    Jewellery_details = await jewellery_model_values.findOne({
+      _id: jewelId,
+    });
+    if (!Jewellery_details) {
+      return next(createCustomError(`No jewel with id : ${jewelId}`, 404));
     }
     mongoose.connection.close();
   } catch (error) {
@@ -132,19 +124,18 @@ const update_jewellery_details = asyncWrapper(async (req, res, next) => {
   try {
     const mongoose = await connect();
     const db = mongoose.connection.useDb(db_name, { useCache: true });
-    if (!Object.keys(db.models).length) {
-      let jewellery_model_values = db.model("Jewel", Jewellery);
-      Jewellery_details = await jewellery_model_values.findOneAndUpdate(
-        { _id: jewelId },
-        req.body,
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
-      if (!Jewellery_details) {
-        return next(createCustomError(`No jewel with id : ${jewelId}`, 404));
+
+    let jewellery_model_values = db.model("Jewel", Jewellery);
+    Jewellery_details = await jewellery_model_values.findOneAndUpdate(
+      { _id: jewelId },
+      req.body,
+      {
+        new: true,
+        runValidators: true,
       }
+    );
+    if (!Jewellery_details) {
+      return next(createCustomError(`No jewel with id : ${jewelId}`, 404));
     }
     mongoose.connection.close();
   } catch (error) {
